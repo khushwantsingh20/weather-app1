@@ -1,58 +1,33 @@
-import React, { useState, useEffect } from "react";
-import Input from "../shared/Input";
-import { getCityList } from "../services/Service";
-import { debounce } from "lodash";
-import CityList from "./CityList";
-import Select from "react-select";
+import React from "react";
 
-const SearchCIty = () => {
-  const [cityList, setCityList] = useState([]);
-  // const onSearchCityHandler = debounce(async (city) => {
-  //   console.log({ city });
-  //   if (city) {
-  //     const data = await currentWeather(city);
-  //     console.log(data);
-  //     setcityweather(data.data.current.condition.text);
-  //   }
-  // }, 2000);
-  const aquaticCreatures = [
-    { label: "Shark", value: "Shark" },
-    { label: "Dolphin", value: "Dolphin" },
-    { label: "Whale", value: "Whale" },
-    { label: "Octopus", value: "Octopus" },
-    { label: "Crab", value: "Crab" },
-    { label: "Lobster", value: "Lobster" },
-  ];
+import { getCityList, currentWeather } from "../services/Service";
 
-  const onSearchCityHandler = debounce(async (searchParams) => {
-    console.log({ searchParams });
-    try {
-      const cityListData = await getCityList(searchParams);
-      console.log(cityListData);
-      setCityList(cityListData.data);
-    } catch (error) {
-      console.error(error);
-      setCityList([]);
+import { AsyncPaginate } from "react-select-async-paginate";
+
+const SearchCIty = (props) => {
+  const loadOptions = async (inputValue, array) => {
+    // console.log({ inputValue });
+    let data = [];
+    if (inputValue) {
+      data = await getCityList(inputValue);
     }
-  }, 1000);
-
-  useEffect(() => {
-    console.log(cityList);
-  }, [cityList]);
-
-  const onChangeHandler = (e) => {
-    console.log("sdsd", e);
+    // console.log(data);
+    const obj = {
+      options: data,
+    };
+    return obj;
   };
-
+  const getSelectedValue = async (e) => {
+    const currentWeatherData = await currentWeather(e.value);
+    props.setCityDetails(currentWeatherData.data);
+  };
   return (
     <>
-      <Input
-        type="text"
-        placeholder="enter your city name"
-        onChange={onSearchCityHandler}
+      <AsyncPaginate
+        loadOptions={loadOptions}
+        onChange={getSelectedValue}
+        debounceTimeout={600}
       />
-      <CityList list={cityList} />
-      <Select onChange={onChangeHandler} options={aquaticCreatures} />
     </>
   );
 };

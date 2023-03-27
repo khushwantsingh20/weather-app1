@@ -10,7 +10,7 @@ const CityList = (props) => {
         <ul className="menu bg-base-100 my-2 w-full">
           {props.list.map((ele, i) => (
             <li className="bordered" key={i}>
-              {ele.name}, {ele.region}
+              {ele.label}, {ele.region}
             </li>
           ))}
         </ul>

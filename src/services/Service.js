@@ -23,7 +23,16 @@ export const getCityList = async (searchParams) => {
       headers: {},
     };
     const cityList = await axios.request(config);
-    return cityList;
+    console.log(cityList);
+    const mappedData = cityList.data.map((ele) => ({
+      value: ele.name,
+      country: ele.country,
+      label: ele.name,
+      lat: ele.lat,
+      long: ele.lon,
+      region: ele.region,
+    }));
+    return mappedData;
   } catch (error) {
     console.error(error);
     return error;
