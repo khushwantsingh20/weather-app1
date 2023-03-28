@@ -23,7 +23,7 @@ const WeatherDeails = (props) => {
   useEffect(() => {
     setcityDetails(props.cityDetails);
     console.log(cityDetails);
-    setImgDetails("https:" + cityDetails.current.condition.icon);
+    setImgDetails("https:" + cityDetails.current?.condition?.icon);
     console.log(imgDetails);
   }, [props.cityDetails, cityDetails, imgDetails]);
 

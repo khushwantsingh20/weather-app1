@@ -5,7 +5,7 @@ export const currentWeather = async (cityname) => {
   const config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `${API_URL}/current.json?key=${API_KEY}&q=${cityname}`,
+    url: `${API_URL}/forecast.json?key=${API_KEY}&q=${cityname}`,
     headers: {},
   };
 
@@ -23,7 +23,6 @@ export const getCityList = async (searchParams) => {
       headers: {},
     };
     const cityList = await axios.request(config);
-    console.log(cityList);
     const mappedData = cityList.data.map((ele) => ({
       value: ele.name,
       country: ele.country,
