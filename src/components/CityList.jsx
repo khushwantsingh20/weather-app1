@@ -1,9 +1,6 @@
 import React from "react";
 
 const CityList = (props) => {
-  const onClose = (e, ele) => {
-    console.log(e.target.value);
-  };
   return (
     <>
       <div className="w-64">
