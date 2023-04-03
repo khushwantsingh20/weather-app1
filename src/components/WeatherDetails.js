@@ -2,10 +2,10 @@ import React, { useEffect, useState, useCallback } from "react";
 import Card from "../shared/Card";
 import { currentWeather } from "../services/Service";
 import Progress from "../shared/Progress";
+import SubWeather from "./SubWeather";
 const WeatherDetails = (props) => {
   const [cityWeatherDetails, setcityWeatherDetails] = useState("");
   const [toggleLoader, setToggleLoader] = useState(false);
-  console.log(props.cityDetails);
   const getCityWeatherDetails = useCallback(async (city) => {
     if (city) {
       try {
@@ -13,12 +13,12 @@ const WeatherDetails = (props) => {
         setTimeout(async () => {
           const data = await currentWeather(city);
           setToggleLoader(false);
-          console.log(data);
           setcityWeatherDetails(data.data);
         }, 2000);
       } catch (error) {
         console.error(error.message);
         setcityWeatherDetails([]);
+        setToggleLoader(false);
       }
     }
   }, []);
@@ -31,6 +31,7 @@ const WeatherDetails = (props) => {
     <>
       <Card>
         {toggleLoader && <Progress />}
+
         {!toggleLoader && (
           <div className="flex-col justify-evenly items-center">
             <p className="text-5xl">{cityWeatherDetails?.location?.name}</p>
@@ -46,6 +47,8 @@ const WeatherDetails = (props) => {
           </div>
         )}
       </Card>
+
+      {!toggleLoader && <SubWeather />}
     </>
   );
 };
