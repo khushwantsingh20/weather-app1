@@ -3,6 +3,7 @@ import Card from "../shared/Card";
 import { currentWeather } from "../services/Service";
 import Progress from "../shared/Progress";
 import SubWeather from "./SubWeather";
+
 const WeatherDetails = (props) => {
   const [cityWeatherDetails, setcityWeatherDetails] = useState("");
   const [toggleLoader, setToggleLoader] = useState(false);
