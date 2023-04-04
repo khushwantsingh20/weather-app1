@@ -9,7 +9,6 @@ const UseRefPrac = () => {
     console.log(inputValueRef.current.value);
   }, 1000);
   const onCounterHandler = () => {
-    console.log("clicked");
     setInterval(() => {
       counterRef.current = counterRef.current + 1;
       console.log(counterRef.current);
