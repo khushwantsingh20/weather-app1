@@ -9,8 +9,9 @@ const AsycnSearch = (props) => {
       data = await getCityList(searchedValue);
     }
     const obj = {
-      options: data,
+      options: data.data.data,
     };
+    console.log(obj);
     return obj;
   };
   const onSelectValue = (selectedValue) => {
